@@ -1,8 +1,14 @@
 import {useNavigate} from "react-router-dom";
 import {Grid, Box, Paper, TextField, Button, Tooltip} from "@mui/material";
 import HomeImage from "./../../assets/estimation.png";
-import "../app/App.scss"
+import "../app/App.scss";
+import {Navbar} from "../../components/navbar/navbar";
 import { createTheme, ThemeProvider} from '@mui/material/styles';
+import {useState} from "react";
+import { useDispatch } from "react-redux";
+import {UserActions} from "../../actions";
+import storeUsername = UserActions.storeUsername;
+
 
 const theme = createTheme({
     palette: {
@@ -59,46 +65,47 @@ const theme = createTheme({
     }
 });
 
-export function Navbar() {
-    return (
-        <nav className="nav">
-            <a href="/" className="site-name">Estimation</a>
-        </nav>
-    )
-}
-
 export function Home () {
-   const navigate = useNavigate()
-
-    return(
+    const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const [name, setName] = useState("");
+   const changeName =(e:any) => {
+       setName(e.target.value);
+       };
+   const handleSubmit = () => {
+       dispatch(storeUsername(name));
+       navigate('estimation');
+   };
+    return (
         <ThemeProvider theme={theme}>
-        <Navbar/>
+            <Navbar/>
             <Grid container direction='row'>
-                    <Box p={2} pl={5} >
-                        <img alt='img' className='HomePageImage' src={HomeImage}
-                             style={{width:'35rem', height:'40rem', borderRadius:'80px'}}></img>
-                    </Box>
-            <Grid pl={8} pt={8}>
-                <Paper >
-                    <Grid textAlign='center' pt={5}>
-                        <h2>Join Room</h2>
-                    </Grid>
-                    <TextField label= 'Name' placeholder='Enter Your Name' fullWidth />
-                    <TextField label= 'Room Number' placeholder='Enter Room Number' fullWidth />
-                    <Tooltip title="Join an existing room"  placement="bottom">
-                    <Button variant="contained" fullWidth onClick={() => navigate('estimation')}>Submit</Button>
-                    </Tooltip>
-                </Paper>
-            </Grid>
+                <Box p={2} pl={5}>
+                    <img alt='img' className='HomePageImage' src={HomeImage}
+                         style={{width: '35rem', height: '40rem', borderRadius: '80px'}}></img>
+                </Box>
                 <Grid pl={8} pt={8}>
-                    <Paper >
+                    <Paper>
+                        <Grid textAlign='center' pt={5}>
+                            <h2>Join Room</h2>
+                        </Grid>
+                        <TextField label='Name' placeholder='Enter Your Name' fullWidth value={name}
+                                   onChange={changeName}/>
+                        <TextField label='Room Number' placeholder='Enter Room Number' fullWidth/>
+                        <Tooltip title="Join an existing room" placement="bottom">
+                            <Button variant="contained" fullWidth onClick={handleSubmit}>Submit</Button>
+                        </Tooltip>
+                    </Paper>
+                </Grid>
+                <Grid pl={8} pt={8}>
+                    <Paper>
                         <Grid textAlign='center' pt={5}>
                             <h2>Create Room</h2>
                         </Grid>
-                        <TextField label= 'Name' placeholder='Enter Your Name' fullWidth />
-                        <TextField label= 'New Room' placeholder='Enter Room Number' fullWidth />
+                        <TextField label='Name' placeholder='Enter Your Name' fullWidth/>
+                        <TextField label='New Room' placeholder='Enter Room Number' fullWidth/>
                         <Tooltip title="Create a new room" placement="bottom">
-                        <Button variant="contained" fullWidth onClick={() => navigate('estimation')}>Submit</Button>
+                            <Button variant="contained" fullWidth onClick={() => navigate('estimation')}>Submit</Button>
                         </Tooltip>
                     </Paper>
                 </Grid>
