@@ -1,0 +1,26 @@
+.grid{
+  display: flex;
+  flex-direction: row;
+
+  .home-image{
+    padding: 0 0 0 3rem;
+
+    img{
+      width: 35rem;
+      height: 40rem;
+    }
+  }
+}
+
+.form{
+  padding: 4rem 0 0 4rem;
+  display: flex;
+  gap: 4rem;
+
+  h2{
+    text-align: center;
+    padding-top: 3rem;
+  }
+}
+
+

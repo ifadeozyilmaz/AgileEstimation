@@ -1,34 +1,6 @@
-$bg_color:#1F6E8C;
-$text_color:white;
+@import "../../components/style";
+@import "../style";
 
-
-.App {
-  text-align: center;
-}
-
-body{
-  font-family: 'Playfair Display', serif;
-}
-.nav{
-  background-color: $bg_color;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-
-  .site-name{
-    font-size: 25px;
-    color: $text_color;
-    font-weight: bold;
-  }
-
-  a{
-    font-size: 20px;
-    padding: 8px;
-    text-decoration: none;
-  }
-
-}
 
 
 

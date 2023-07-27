@@ -1,0 +1,16 @@
+$bg_color:#1F6E8C;
+$text_color:#FFF;
+
+.nav{
+  background-color: $bg_color;
+  display: flex;
+  padding: 0.5rem;
+
+  .site-name{
+    font-size: 1.5rem;
+    color: $text_color;
+    font-weight: bold;
+    padding: 0.5rem;
+    text-decoration: none;
+  }
+}
