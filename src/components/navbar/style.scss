@@ -1,5 +1,4 @@
-$bg_color:#1F6E8C;
-$text_color:#FFF;
+@import "../../style/color";
 
 .nav{
   background-color: $bg_color;
@@ -12,5 +11,10 @@ $text_color:#FFF;
     font-weight: bold;
     padding: 0.5rem;
     text-decoration: none;
+  }
+}
+@media screen and (max-width:768px) {
+  .nav{
+    width:100%;
   }
 }

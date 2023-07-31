@@ -1,21 +1,23 @@
 import {useNavigate} from "react-router-dom";
 import {Paper, TextField, Button, Tooltip} from "@mui/material";
 import HomeImage from "../../assets/estimation.png";
-import {useState} from "react";
+import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import {UserActions} from "../../actions";
 import storeUsername = UserActions.storeUsername;
+import {RouteTypes} from "../../enums/routes";
+
 
 export function Home () {
     const dispatch = useDispatch();
    const navigate = useNavigate();
-   const [name, setName] = useState("");
-   const changeName =(e:any) => {
+   const [name, setName] = useState<string>("");
+   const changeName =(e:React.ChangeEvent<HTMLInputElement>) => {
        setName(e.target.value);
        };
    const handleSubmit = () => {
        dispatch(storeUsername(name));
-       navigate('estimation');
+       navigate(RouteTypes.Estimation);
    };
     return (
         <>

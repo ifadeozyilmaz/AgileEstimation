@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {ThemeProvider} from "@mui/material";
-import {theme} from "./theme";
+import {theme} from "./style/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

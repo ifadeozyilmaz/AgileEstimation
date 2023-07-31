@@ -1,12 +1,9 @@
-$bg_color:#1F6E8C;
-$bg_color2:#6096B4;
-$text_color:#FFF;
+@import "../../style/color";
 
 .container{
   width: 30rem;
   height: 18rem;
-  margin-left: 30rem;
-  margin-top: 1rem;
+  margin: 1rem 0 0 30rem;
   padding-left: 4rem;
   display: flex;
   gap: 14rem;
@@ -53,8 +50,7 @@ $text_color:#FFF;
 }
 
 .btn{
-  margin-left: 35rem;
-  margin-top: 3rem;
+  margin: 3rem 0 0 35rem;
   display: flex;
   gap: 8rem;
 
@@ -69,4 +65,29 @@ $text_color:#FFF;
   }
 }
 
+@media screen and (max-width: 768px) {
+  .container{
+    width: 20rem;
+    height: auto;
+    margin-left:15rem;
+    padding: 1rem 0 1rem 2rem;
+    gap: 6rem;
+  }
+
+  .card{
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    .numbers{
+      width: 9rem;
+      height: 11rem;
+      margin-left: 3rem;
+    }
+  }
+
+  .btn{
+    margin-left:13rem;
+    width: 80%;
+  }
+}
 

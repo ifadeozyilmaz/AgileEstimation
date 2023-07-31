@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
-import {Routes,Route, Navigate} from "react-router-dom";
+import {Routes,Route} from "react-router-dom";
+import {RouteTypes} from "../../enums/routes";
 import {Home} from "../homepage/home";
 import {Estimation} from "../estimationpage/estimation";
 import {Navbar} from "../../components";
@@ -10,10 +11,9 @@ function App() {
       <>
       <Navbar/>
               <Routes>
-                  <Route path='/' element={<Home/>} />
-                  <Route path='estimation' element={<Estimation/>} />
-                  <Route path="*" element={<Navigate to="/" replace />}
-                  />
+                  <Route path={RouteTypes.Home} Component={Home} />
+                  <Route path={RouteTypes.Estimation} Component={Estimation} />
+                  <Route path="*" Component={Home}/>
               </Routes>
       </>
   );
