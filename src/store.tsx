@@ -4,6 +4,7 @@ import {createEpicMiddleware} from 'redux-observable';
 
 // then we load all reducer, that we need
 import {
+    roomReducer, RoomReducerState,
     userReducer, UserReducerState,
 
 } from './reducer';
@@ -24,12 +25,14 @@ const middleware = compose(
 
 // then we create the main reducer, by combining all other reducers
 const mainReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    room: roomReducer
 });
 
 // the complete application state
 export interface State {
     user: UserReducerState;
+    room: RoomReducerState;
 
 }
 

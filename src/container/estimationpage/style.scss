@@ -1,25 +1,24 @@
 @import "../../style/color";
 
 .container{
-  width: 30rem;
+  width: 35rem;
   height: 18rem;
   margin: 1rem 0 0 30rem;
-  padding-left: 4rem;
+  padding-left: 2rem;
   display: flex;
-  gap: 14rem;
+  gap: 16rem;
   border-radius: 0.5rem;
   border: 0.1rem solid #ddd;
 
   .header{
-    margin-top: 1rem;
     font-size: 1.5rem;
     color: $bg_color;
+    line-height: 3rem;
   }
 
   .selected-card{
     width: 8rem;
     height: 13rem;
-    margin-top: 0.5rem;
     padding: 1.5rem 0 0 0.5rem;
     border-radius: 1rem;
     background-color: $bg_color;
@@ -67,7 +66,7 @@
 
 @media screen and (max-width: 768px) {
   .container{
-    width: 20rem;
+    width: 23rem;
     height: auto;
     margin-left:15rem;
     padding: 1rem 0 1rem 2rem;

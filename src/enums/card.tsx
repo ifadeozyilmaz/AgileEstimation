@@ -1,3 +1,6 @@
+/**
+ * @typedef {(number|string)} CardTypes
+ */
 export enum CardTypes {
     UNKNOWN = '?',
     ONE = 1,

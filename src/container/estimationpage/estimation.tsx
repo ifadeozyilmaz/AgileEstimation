@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {State} from "../../store";
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import {CardTypes} from "../../enums";
 
 
@@ -27,15 +27,21 @@ export function Estimation() {
         setSelectedCard(null);
         setShow(true);
     };
-
+    /**
+     * The state is show the selected card
+     *@type {boolean}
+     */
     const [show,setShow] = useState(true);
 
     const username = useSelector((state: State) => state.user.username);
+    const room = useSelector((state: State) => state.room.room);
         return (
-            <>
+            <Fragment>
             <div className="container">
                 <div className="header">
                     Name:{username}
+                    <br/>
+                        Room ID:{room}
                 </div>
                 <div className="header">
                     Selected Card
@@ -47,12 +53,12 @@ export function Estimation() {
                 </div>
                 </div>
             </div>
-            <div className='card'>
+            <div className="card">
                 {numbers.map((number, item) => (
-                    <div key={item} className={`numbers ${selectedCard === number ? 'selected' : ''}`}
+                    <div key={item} className="numbers"
                 onClick={() => handleCardClick(number)}>
                         <h1>
-                            {`${number}`}
+                            {number}
                         </h1>
                     </div>
                 ))}
@@ -61,7 +67,7 @@ export function Estimation() {
                 <button onClick={() => setShow(!show)}>Reveal</button>
                 <button onClick={handleReset}>Reset</button>
                 </div>
-            </>
+            </Fragment>
         )
 
 }

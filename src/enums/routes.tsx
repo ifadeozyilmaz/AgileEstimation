@@ -1,4 +1,4 @@
 export enum RouteTypes {
-    Home= "/",
-    Estimation = "/estimation",
+    Home= "/AgileEstimation",
+    Estimation = "/Room",
 }
