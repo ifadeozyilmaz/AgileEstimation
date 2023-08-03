@@ -47,7 +47,7 @@ export function Estimation() {
                     Selected Card
                 <div className="selected-card">
                     {show ?
-                        <> {selectedCard !== null ? <p>{selectedCard}</p> : ' '} </>
+                        ((selectedCard !== null) && <p>{selectedCard}</p> )
                     :'👍'
                     }
                 </div>

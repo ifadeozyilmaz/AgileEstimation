@@ -8,10 +8,10 @@ import {Navbar} from "../../components";
 
 function App() {
     const location = useLocation();
-    const path = location.pathname.replace(/\//,'');
+    const pathTitle = location.pathname.replace(/\//,'');
     return (
       <Fragment>
-      <Navbar title={path}/>
+      <Navbar title={pathTitle}/>
               <Routes>
                   <Route path={RouteTypes.Home} Component={Home} />
                   <Route path={RouteTypes.Estimation} Component={Estimation} />
