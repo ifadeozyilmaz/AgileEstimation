@@ -14,16 +14,10 @@ export function Home () {
    const navigate = useNavigate();
    const [name, setName] = useState<string>("");
    const [id,setId] = useState("");
-   const changeName =(e:React.ChangeEvent<HTMLInputElement>) => {
-       setName(e.target.value);
-       };
-    const changeId =(e:React.ChangeEvent<HTMLInputElement>) => {
-        setId(e.target.value);
-    };
    const handleSubmit = () => {
        dispatch(storeUsername(name));
        dispatch(storeRoom(id));
-       navigate(RouteTypes.Estimation);
+       navigate(RouteTypes.Estimation.replace(':RoomId', id));
    };
     return (
         <Fragment>
@@ -34,15 +28,17 @@ export function Home () {
                 <div className="form">
                     <Paper>
                         <h2>Join Room</h2>
-                        <TextField label='Name' placeholder='Enter Your Name' fullWidth value={name} onChange={changeName}/>
-                        <TextField label='Room Number' placeholder='Enter Room Number' fullWidth value={id} onChange={changeId}/>
+                        <TextField label='Name' placeholder='Enter Your Name' fullWidth value={name}
+                                   onChange={(e)=>setName(e.target.value)}/>
+                        <TextField label='Room Number' placeholder='Enter Room Number' fullWidth value={id}
+                                   onChange={(e)=>setId(e.target.value)}/>
                         <Tooltip title="Join an existing room" placement="bottom">
-                            <Button variant="contained" fullWidth onClick={handleSubmit}>Submit</Button>
+                            <Button disabled={id.length===0} variant="contained" fullWidth onClick={handleSubmit}>Submit</Button>
                         </Tooltip>
                     </Paper>
                     <Paper>
                         <h2>Create Room</h2>
-                        <TextField label='Name' placeholder='Enter Your Name' fullWidth value={name} onChange={changeName}/>
+                        <TextField label='Name' placeholder='Enter Your Name' fullWidth/>
                         <TextField label='New Room' placeholder='Enter Room Number' fullWidth/>
                         <Tooltip title="Create a new room" placement="bottom">
                             <Button variant="contained" fullWidth onClick={handleSubmit}>Submit</Button>

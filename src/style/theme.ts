@@ -15,6 +15,11 @@ export const theme = createTheme({
                         backgroundColor:'#6096B4',
                         boxShadow:"none",
                         color:'#FFFFFF',
+                    },
+                    ":disabled":{
+                        backgroundColor: '#6096B4',
+                        color:'#FFFFFF',
+
                     }
                 }
             }

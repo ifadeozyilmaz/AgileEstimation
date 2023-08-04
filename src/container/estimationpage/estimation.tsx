@@ -32,16 +32,12 @@ export function Estimation() {
      *@type {boolean}
      */
     const [show,setShow] = useState(true);
-
     const username = useSelector((state: State) => state.user.username);
-    const room = useSelector((state: State) => state.room.room);
         return (
             <Fragment>
             <div className="container">
                 <div className="header">
                     Name:{username}
-                    <br/>
-                        Room ID:{room}
                 </div>
                 <div className="header">
                     Selected Card
@@ -54,8 +50,8 @@ export function Estimation() {
                 </div>
             </div>
             <div className="card">
-                {numbers.map((number, item) => (
-                    <div key={item} className="numbers"
+                {numbers.map((number) => (
+                    <div className="numbers"
                 onClick={() => handleCardClick(number)}>
                         <h1>
                             {number}
