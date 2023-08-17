@@ -1,15 +1,15 @@
 import {UserActions} from '../actions';
 
 export interface UserReducerState {
-    username: string | undefined;
+    username: string [];
 }
 
 /**
  * Initial user reducer state
- * @type {{UserReducerState: string | undefined}}
+ * @type {{UserReducerState: string []}}
  */
 const INITIAL_STATE: UserReducerState = {
-    username: undefined
+    username: []
 };
 
 /**
@@ -23,7 +23,7 @@ export function userReducer(aState: UserReducerState = INITIAL_STATE, aAction: U
         case UserActions.ActionTypes.STORE_USERNAME:
             return {
                 ...aState,
-                username: aAction.payload
+                username: [...aState.username,aAction.payload]
             };
         default:
             return aState;

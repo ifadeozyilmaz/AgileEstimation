@@ -2,6 +2,8 @@ import {useSelector} from "react-redux";
 import {State} from "../../store";
 import {Fragment, useState} from "react";
 import {CardTypes} from "../../enums";
+import {useNavigate} from "react-router-dom";
+import {RouteTypes} from "../../enums/routes";
 
 
 const numbers: CardTypes[] = [
@@ -19,6 +21,7 @@ const numbers: CardTypes[] = [
 
 export function Estimation() {
     const [selectedCard, setSelectedCard] = useState<CardTypes | null>(null);
+    const navigate = useNavigate();
     const handleCardClick = (card: CardTypes) => {
         setSelectedCard(card);
         setShow(false);
@@ -33,25 +36,30 @@ export function Estimation() {
      */
     const [show,setShow] = useState(true);
     const username = useSelector((state: State) => state.user.username);
-        return (
+    return (
             <Fragment>
             <div className="container">
                 <div className="header">
-                    Name:{username}
+                    Users:
+                   <div className="users">
+                        {username.map((user) => (
+                            <li key={user}>{user}</li>
+                        ))}
+                   </div>
                 </div>
                 <div className="header">
                     Selected Card
                 <div className="selected-card">
                     {show ?
-                        ((selectedCard !== null) && <p>{selectedCard}</p> )
-                    :'👍'
+                        <p>{selectedCard}</p>
+                        :<p>👍</p>
                     }
                 </div>
                 </div>
             </div>
             <div className="card">
-                {numbers.map((number) => (
-                    <div className="numbers"
+                {numbers.map((number,item) => (
+                    <div key={item} className="numbers"
                 onClick={() => handleCardClick(number)}>
                         <h1>
                             {number}
@@ -60,12 +68,13 @@ export function Estimation() {
                 ))}
             </div>
                 <div className="btn">
-                <button onClick={() => setShow(!show)}>Reveal</button>
+                <button onClick={() => setShow((selectedCard !==null)===!show)}>Reveal</button>
                 <button onClick={handleReset}>Reset</button>
+                    <button onClick={()=>navigate(RouteTypes.Home)}>Exit</button>
                 </div>
             </Fragment>
         )
-
 }
+
 
 

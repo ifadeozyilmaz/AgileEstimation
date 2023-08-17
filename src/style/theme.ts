@@ -24,13 +24,6 @@ export const theme = createTheme({
                 }
             }
         },
-        MuiTooltip: {
-            styleOverrides: {
-                tooltipPlacementBottom:{
-                    backgroundColor:'#6096B4',
-                },
-            }
-        },
         MuiTextField:{
             styleOverrides:{
                 root:{
