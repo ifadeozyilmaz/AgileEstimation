@@ -38,8 +38,11 @@ io.on('connection', socket => {
     });
     socket.on("selectedCard", (selectedCard) => {
         const roomId = selectedCard.roomId
+        const name = selectedCard.username
+        const card = selectedCard.card
     socket.broadcast.to(roomId).emit("cardSelected", {selectedCard});
-        console.log(`${socket.id} selected ${selectedCard}`)
+        console.log(`${name} selected ${card} `)
+        //TODO: selected card in room
     });
 });
 

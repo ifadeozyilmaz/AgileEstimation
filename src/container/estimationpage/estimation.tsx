@@ -47,8 +47,8 @@ export function Estimation() {
     const handleCardClick = (card: CardTypes) => {
         setSelectedCard(card);
         setShow(false);
-        socket.emit("selectedCard", card);
-        console.log(`${socket.id} selected ${card}`)
+        socket.emit("selectedCard", {card,username});
+        console.log(`${username} selected ${card}`)
     };
     const handleReset = () => {
         setSelectedCard(null);
