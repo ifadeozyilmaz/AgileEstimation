@@ -1,15 +1,19 @@
 import {UserActions} from '../actions';
 
 export interface UserReducerState {
-    username: string [];
+    username: string;
+    usersInRoom: string[];
+
 }
 
 /**
  * Initial user reducer state
- * @type {{UserReducerState: string []}}
+ * @type {{UserReducerState: string }}
  */
 const INITIAL_STATE: UserReducerState = {
-    username: []
+    username: "",
+    usersInRoom: [],
+
 };
 
 /**
@@ -23,7 +27,12 @@ export function userReducer(aState: UserReducerState = INITIAL_STATE, aAction: U
         case UserActions.ActionTypes.STORE_USERNAME:
             return {
                 ...aState,
-                username: [...aState.username,aAction.payload]
+                username: aAction.payload
+            };
+        case UserActions.ActionTypes.STORE_USERS_IN_ROOM:
+            return {
+                ...aState,
+                usersInRoom: aAction.payload
             };
         default:
             return aState;

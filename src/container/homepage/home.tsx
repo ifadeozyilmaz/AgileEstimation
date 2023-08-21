@@ -8,15 +8,20 @@ import storeUsername = UserActions.storeUsername;
 import {RouteTypes} from "../../enums/routes";
 import storeRoom = RoomActions.storeRoom;
 import SocketIO from "socket.io-client";
+import storeUsersInRoom = UserActions.storeUsersInRoom;
 const socket = SocketIO("http://localhost:3001",{transports:["websocket"]})
 
+ export interface User {
+    name:string;
+    roomId:string;
+}
 export function Home () {
     const dispatch = useDispatch();
    const navigate = useNavigate();
    const [name, setName] = useState<string>("");
    const [roomId,setRoomId] = useState<string>("");
 
-   interface User {
+    interface User {
        name:string;
        roomId:string;
    }
@@ -25,21 +30,28 @@ export function Home () {
         console.log(name,roomId);
     }
 
+
+
     useEffect(()=>{
         socket.onAny((event,data)=>{
             if(event==='userJoined'){
                 const name = data.name;
-                console.log(name)
-                console.log(`username: ${data.name} was emitted with roomId: ${data.roomId}`);
                 dispatch(storeUsername(data.name))
             }
         });
+        socket.on('userJoinedEvent', ({ namesInRoom }) => {
+            dispatch(storeUsersInRoom(namesInRoom))
+            console.log(namesInRoom)
+
+        });
     },[]);
 
+
     const handleSubmit = () => {
+        console.log("submit")
         dispatch(storeUsername(name));
         dispatch(storeRoom(roomId));
-        addUser({name,roomId});
+        addUser({name,roomId})
         navigate(RouteTypes.Estimation.replace(':RoomId', roomId));
     }
     return (
