@@ -9,65 +9,52 @@ import {RouteTypes} from "../../enums/routes";
 import storeRoom = RoomActions.storeRoom;
 import SocketIO from "socket.io-client";
 import storeUsersInRoom = UserActions.storeUsersInRoom;
-const socket = SocketIO("http://localhost:3001",{transports:["websocket"]})
 
- export interface User {
-    name:string;
-    roomId:string;
+const socket = SocketIO("http://localhost:3001", {transports: ["websocket"]})
+
+export interface User {
+    name: string;
+    roomId: string;
 }
-export function Home () {
+export function Home() {
     const dispatch = useDispatch();
-   const navigate = useNavigate();
-   const [name, setName] = useState<string>("");
-   const [roomId,setRoomId] = useState<string>("");
+    const navigate = useNavigate();
+    const [name, setName] = useState<string>("");
+    const [roomId, setRoomId] = useState<string>("");
 
-    interface User {
-       name:string;
-       roomId:string;
-   }
-    const addUser = ({name,roomId}:User) => {
-        socket.emit('joinRoom', {name,roomId});
-        console.log(name,roomId);
+    const addUser = ({name, roomId}: User) => {
+        socket.emit('joinRoom', {name, roomId});
+        console.log(name, roomId);
     }
-
-
-
-    useEffect(()=>{
-        socket.onAny((event,data)=>{
-            if(event==='userJoined'){
-                const name = data.name;
-                dispatch(storeUsername(data.name))
-            }
-        });
-        socket.on('userJoinedEvent', ({ namesInRoom }) => {
+    useEffect(() => {
+        socket.on('userJoinedEvent', ({namesInRoom}) => {
             dispatch(storeUsersInRoom(namesInRoom))
             console.log(namesInRoom)
-
         });
-    },[]);
+    }, []);
 
 
     const handleSubmit = () => {
-        console.log("submit")
         dispatch(storeUsername(name));
         dispatch(storeRoom(roomId));
-        addUser({name,roomId})
+        addUser({name, roomId})
         navigate(RouteTypes.Estimation.replace(':RoomId', roomId));
     }
     return (
         <Fragment>
-            <div className = "grid">
+            <div className="grid">
                 <div className="home-image">
-                    <img alt = 'img' src = {HomeImage}></img>
+                    <img alt='img' src={HomeImage}></img>
                 </div>
                 <div className="form">
                     <Paper>
                         <h2>Join Room</h2>
                         <TextField label='Name' placeholder='Enter Your Name' fullWidth value={name}
-                                   onChange={(e)=>setName(e.target.value)}/>
+                                   onChange={(e) => setName(e.target.value)}/>
                         <TextField label='Room Number' placeholder='Enter Room Number' fullWidth value={roomId}
-                                   onChange={(e)=>setRoomId(e.target.value)}/>
-                        <Button disabled={(roomId && name).length===0} variant="contained" fullWidth onClick={handleSubmit}>Submit</Button>
+                                   onChange={(e) => setRoomId(e.target.value)}/>
+                        <Button disabled={(roomId && name).length === 0} variant="contained" fullWidth
+                                onClick={handleSubmit}>Submit</Button>
                     </Paper>
                     <Paper>
                         <h2>Create Room</h2>
@@ -77,6 +64,6 @@ export function Home () {
                     </Paper>
                 </div>
             </div>
-     </Fragment>
+        </Fragment>
     );
 }
