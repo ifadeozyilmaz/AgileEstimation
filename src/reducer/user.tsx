@@ -3,8 +3,6 @@ import {UserActions} from '../actions';
 export interface UserReducerState {
     username: string;
     usersInRoom: string[];
-    selectedCards: string [];
-
 }
 
 /**
@@ -15,8 +13,6 @@ export interface UserReducerState {
 const INITIAL_STATE: UserReducerState = {
     username: "",
     usersInRoom: [],
-    selectedCards: [],
-
 };
 
 /**
@@ -36,11 +32,6 @@ export function userReducer(aState: UserReducerState = INITIAL_STATE, aAction: U
             return {
                 ...aState,
                 usersInRoom: aAction.payload
-            };
-        case UserActions.ActionTypes.STORE_SELECTED_CARDS:
-            return {
-                ...aState,
-                selectedCards: aAction.payload
             };
         default:
             return aState;

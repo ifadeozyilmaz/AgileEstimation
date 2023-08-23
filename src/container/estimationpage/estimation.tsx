@@ -1,13 +1,10 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {State} from "../../store";
 import {Fragment, useState, useEffect} from "react";
 import {CardTypes} from "../../enums";
 import {useNavigate} from "react-router-dom";
 import {RouteTypes} from "../../enums/routes";
 import SocketIO from "socket.io-client";
-import {UserActions} from "../../actions";
-import storeSelectedCards = UserActions.storeSelectedCards;
-
 const socket = SocketIO("http://localhost:3001", {transports: ["websocket"]})
 
 
@@ -27,39 +24,32 @@ const numbers: CardTypes[] = [
 export function Estimation() {
     const [selectedCard, setSelectedCard] = useState<CardTypes | null>(null);
     const [show, setShow] = useState(true);
-    const username = useSelector((state: State) => state.user.username);
+    const [isCardSelected, setIsCardSelected] = useState(false);
+    const [average, setAverage] = useState(null);
+    const roomId = useSelector((state: State) => state.room.room);
     const usersInRoom = useSelector((state: State) => state.user.usersInRoom);
-    const selectedCards = useSelector((state: State) => state.user.selectedCards);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-
-    const calculateAverage = (array: CardTypes[]) => {
-        const values = array.filter((value) => !isNaN(Number(value)));
-        const sum = values.reduce((acc, val) => acc + Number(val), 0);
-        return sum / values.length;
-    };
-
-    // const averageCard = users.map((user)=>user.selectedCard)
-    // const average = calculateAverage(averageCard).toFixed(1)
-    const average = calculateAverage(numbers).toFixed(1)
 
     useEffect(() => {
-        socket.on("selectedCard", (selectedCards) => {
-            setSelectedCard(selectedCards);
-            dispatch(storeSelectedCards(selectedCards))
+        socket.on('selectedCardsResponse', ({ selectedCards, averageSelectedCards }) => {
+            console.log(selectedCards);
+            setAverage(averageSelectedCards)
         });
     }, []);
-    const handleCardClick = (card: CardTypes) => {
-        setSelectedCard(card);
-        setShow(false);
-        socket.emit("selectedCard", {card, username});
-        console.log(`${username} selected ${card}`)
-        console.log(selectedCards)
 
+    const handleCardClick = (card: CardTypes) => {
+        if (!isCardSelected){
+            setSelectedCard(card);
+            setIsCardSelected(true);
+            setShow(false);
+            socket.emit("selectedCard", {card, roomId});
+            socket.emit('getSelectedCards', { roomId: roomId });
+        }
     };
     const handleReset = () => {
         setSelectedCard(null);
+        setAverage(null);
+        setIsCardSelected(false);
         setShow(true);
     };
     return (
@@ -69,7 +59,7 @@ export function Estimation() {
                     Users:
                     <div className="users">
                         {usersInRoom.map((user, index) => (
-                            <li key={index}>{user}:{selectedCards[index]}</li>
+                            <li key={index}>{user}</li>
                         ))}
                    </div>
                 </div>
@@ -85,8 +75,8 @@ export function Estimation() {
             </div>
             <div className="card">
                 {numbers.map((number, item) => (
-                    <div key={item} className="numbers"
-                         onClick={() => handleCardClick(number)}>
+                    <div key={item} className={`numbers ${isCardSelected ? 'disabled' : ''}`}
+                         onClick={() => isCardSelected ? null : handleCardClick(number)}>
                         <h1>
                             {number}
                         </h1>

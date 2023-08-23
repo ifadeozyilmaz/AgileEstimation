@@ -47,7 +47,9 @@
     background-color: $bg_color;
   }
 }
-
+ .disabled {
+  cursor: not-allowed;
+}
 .btn{
   margin: 3rem 0 0 28rem;
   display: flex;

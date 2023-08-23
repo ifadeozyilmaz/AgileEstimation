@@ -2,7 +2,6 @@ export namespace UserActions {
     export enum ActionTypes {
         STORE_USERNAME = 'UserActions.STORE_USERNAME',
         STORE_USERS_IN_ROOM = 'UserActions.STORE_USERS_IN_ROOM',
-        STORE_SELECTED_CARDS = 'UserActions.STORE_SELECTED_CARDS'
     }
 
     export interface StoreUsernameAction {
@@ -15,13 +14,8 @@ export namespace UserActions {
         readonly payload: string[];
     }
 
-    export interface StoreSelectedCardsAction {
-        readonly type: ActionTypes.STORE_SELECTED_CARDS;
-        readonly payload: string[];
-    }
 
-
-    export type AllActionInterfaces = StoreUsernameAction | StoreUsersInRoomAction | StoreSelectedCardsAction;
+    export type AllActionInterfaces = StoreUsernameAction | StoreUsersInRoomAction ;
 
     export function storeUsername(username: string): StoreUsernameAction {
         return {
@@ -36,12 +30,4 @@ export namespace UserActions {
             payload: usersInRoom
         };
     }
-
-    export function storeSelectedCards(selectedCards: string[]): StoreSelectedCardsAction {
-        return {
-            type: ActionTypes.STORE_SELECTED_CARDS,
-            payload: selectedCards
-        };
-    }
-
 }

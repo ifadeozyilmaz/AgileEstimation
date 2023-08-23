@@ -11,6 +11,7 @@ const io = new Server(httpServer, {
     },
 });
 const roomUsers = new Map();
+const roomCardSelection = new Map();
 // Run when users connects
 io.on('connection', socket => {
 
@@ -31,20 +32,28 @@ io.on('connection', socket => {
             console.log(`${name} left the room: ${roomId}`)
         })
     });
+
     socket.on("selectedCard", (selectedCard) => {
         const roomId = selectedCard.roomId
-        const name = selectedCard.username
         const card = selectedCard.card
 
-        if (!roomUsers.has(roomId)) {
-            roomUsers.set(roomId, []);
+        if (!roomCardSelection.has(roomId)) {
+            roomCardSelection.set(roomId, []);
         }
-        const selectedCardsInRoom = roomUsers.get(roomId) || [];
-        selectedCardsInRoom.push(`${name}: ${card}`);
-        io.to(roomId).emit("cardSelected", { selectedCard });
-        console.log(`${name} selected ${card}`);
+        roomCardSelection.get(roomId).push(card);
+        const selectedCardsInRoom = roomCardSelection.get(roomId) || [];
+        io.to(roomId).emit('cardSelectionEvent', {selectedCardsInRoom});
         console.log(`Selected cards in room ${roomId}: ${selectedCardsInRoom.join(', ')}`);
+    });
 
+    socket.on('getSelectedCards', ({ roomId }) => {
+
+        const selectedCards = roomCardSelection.get(roomId) || [];
+        const values = selectedCards.filter((value:any)=>!isNaN(Number(value)))
+        const sumOfSelectedCards = values.reduce((sum:any, card:any) => sum + Number(card), 0);
+        const averageSelectedCards = (sumOfSelectedCards / selectedCards.length).toFixed(1);
+
+        socket.emit('selectedCardsResponse', { selectedCards,averageSelectedCards });
     });
 });
 
