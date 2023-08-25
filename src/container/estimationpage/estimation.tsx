@@ -3,7 +3,7 @@ import {State} from "../../store";
 import {Fragment, useState, useEffect} from "react";
 import {CardTypes} from "../../enums";
 import {useNavigate} from "react-router-dom";
-import {RouteTypes} from "../../enums/routes";
+import {RouteTypes} from "../../enums";
 import SocketIO from "socket.io-client";
 const socket = SocketIO("http://localhost:3001", {transports: ["websocket"]})
 
@@ -31,8 +31,8 @@ export function Estimation() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        socket.on('selectedCardsResponse', ({ selectedCards, averageSelectedCards }) => {
-            console.log(selectedCards);
+        socket.on('usersSelectedCardsResponse', ({ usersSelectedCards, averageSelectedCards }) => {
+            console.log(usersSelectedCards);
             setAverage(averageSelectedCards)
         });
     }, []);

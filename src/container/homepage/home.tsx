@@ -5,7 +5,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {RoomActions, UserActions} from "../../actions";
 import storeUsername = UserActions.storeUsername;
-import {RouteTypes} from "../../enums/routes";
+import {RouteTypes} from "../../enums";
 import storeRoom = RoomActions.storeRoom;
 import SocketIO from "socket.io-client";
 import storeUsersInRoom = UserActions.storeUsersInRoom;

@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import './App.scss';
 import {Routes, Route, Navigate, useLocation} from "react-router-dom";
-import {RouteTypes} from "../../enums/routes";
+import {RouteTypes} from "../../enums";
 import {Home} from "../homepage/home";
 import {Estimation} from "../estimationpage/estimation";
 import {Navbar} from "../../components";

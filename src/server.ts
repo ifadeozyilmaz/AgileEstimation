@@ -48,12 +48,12 @@ io.on('connection', socket => {
 
     socket.on('getSelectedCards', ({ roomId }) => {
 
-        const selectedCards = roomCardSelection.get(roomId) || [];
-        const values = selectedCards.filter((value:any)=>!isNaN(Number(value)))
+        const usersSelectedCards = roomCardSelection.get(roomId) || [];
+        const values = usersSelectedCards.filter((value:any)=>!isNaN(Number(value)))
         const sumOfSelectedCards = values.reduce((sum:any, card:any) => sum + Number(card), 0);
-        const averageSelectedCards = (sumOfSelectedCards / selectedCards.length).toFixed(1);
+        const averageSelectedCards = (sumOfSelectedCards / usersSelectedCards.length).toFixed(1);
 
-        socket.emit('selectedCardsResponse', { selectedCards,averageSelectedCards });
+        socket.emit('usersSelectedCardsResponse', { usersSelectedCards,averageSelectedCards });
     });
 });
 
